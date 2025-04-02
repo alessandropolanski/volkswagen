@@ -1,0 +1,1001 @@
+/* Layout Editor Styles */
+
+/* Canvas e ferramentas */
+.canvas-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  background-color: #f0f0f0;
+}
+
+.canvas-tools {
+  display: flex;
+  padding: 10px 16px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+  align-items: center;
+  height: 54px;
+  box-sizing: border-box;
+  z-index: 10;
+}
+
+.zoom-button {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.zoom-button:hover {
+  background: #f0f0f0;
+}
+
+.zoom-level {
+  margin: 0 10px;
+  font-size: 13px;
+  color: #666;
+  min-width: 45px;
+  text-align: center;
+}
+
+.canvas-dimensions-indicator {
+  margin-left: auto;
+  font-size: 13px;
+  color: #666;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+}
+
+.canvas-container {
+  flex: 1;
+  overflow: auto;
+  position: relative;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+.canvas {
+  position: relative;
+  background: white;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+  transform-origin: center center;
+  margin: auto;
+  border: 1px solid #ccc;
+  min-width: 100px;
+  min-height: 100px;
+  overflow: hidden;
+}
+
+.canvas-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(rgba(200, 200, 200, 0.2) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(200, 200, 200, 0.2) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Elementos do layout */
+.layout-element {
+  position: absolute;
+  border: 1px solid #ddd;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  box-sizing: border-box;
+  cursor: move;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+  z-index: 1;
+}
+
+.layout-element.selected {
+  border: 2px solid #0066cc;
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.3);
+  z-index: 10;
+}
+
+.variable-element {
+  background-color: #e6f0ff !important;
+}
+
+.text-element, .variable-element {
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 8px;
+}
+
+.image-element {
+  background-color: #f5f5f5;
+}
+
+.element-content {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.variable-tag {
+  background-color: #e6f0ff;
+  color: #0066cc;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 14px;
+  font-family: monospace;
+}
+
+.variable-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+}
+
+.image-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  width: 100%;
+  height: 100%;
+}
+
+.image-icon {
+  width: 32px;
+  height: 32px;
+  stroke: #999;
+  margin-bottom: 10px;
+}
+
+.image-text {
+  font-size: 14px;
+}
+
+.variable-image-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Alças de redimensionamento */
+.resize-handle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border: 1.5px solid #0066cc;
+  border-radius: 4px;
+  z-index: 11;
+}
+
+.resize-handle-nw { top: -4px; left: -4px; cursor: nw-resize; }
+.resize-handle-n { top: -4px; left: 50%; transform: translateX(-50%); cursor: n-resize; }
+.resize-handle-ne { top: -4px; right: -4px; cursor: ne-resize; }
+.resize-handle-e { top: 50%; right: -4px; transform: translateY(-50%); cursor: e-resize; }
+.resize-handle-se { bottom: -4px; right: -4px; cursor: se-resize; }
+.resize-handle-s { bottom: -4px; left: 50%; transform: translateX(-50%); cursor: s-resize; }
+.resize-handle-sw { bottom: -4px; left: -4px; cursor: sw-resize; }
+.resize-handle-w { top: 50%; left: -4px; transform: translateY(-50%); cursor: w-resize; }
+
+/* Formulário de edição de elementos */
+.element-edit-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.element-edit-textarea {
+  flex: 1;
+  width: 100%;
+  min-height: 50px;
+  border: none;
+  outline: none;
+  resize: none;
+  padding: 5px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.variable-name-container {
+  padding: 5px;
+  border-top: 1px solid #ddd;
+  background-color: #f5f5f5;
+  font-size: 12px;
+}
+
+.variable-name-input {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 4px;
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+/* Mensagem quando não há layout ativo */
+.no-layout-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 40px;
+  color: #999;
+  text-align: center;
+  background: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.no-layout-message h3 {
+  margin: 15px 0 10px;
+  font-size: 18px;
+  color: #666;
+}
+
+.no-layout-message p {
+  margin: 0 0 20px;
+  font-size: 14px;
+}
+
+.no-layout-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.create-button, .save-button {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 16px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.save-button {
+  background-color: #666;
+}
+
+/* Dropdown de exportação no canto superior */
+.export-dropdown-container {
+  position: relative;
+  margin-left: auto;
+  margin-right: 15px;
+}
+
+.export-dropdown-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.export-dropdown-button:hover {
+  background-color: #0055aa;
+}
+
+.export-dropdown-button svg {
+  width: 16px;
+  height: 16px;
+  stroke: white;
+}
+
+.export-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
+  min-width: 160px;
+  z-index: 1000;
+  overflow: hidden;
+  animation: dropdown-appear 0.2s ease-out;
+  transform-origin: top right;
+}
+
+@keyframes dropdown-appear {
+  from { 
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to { 
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.export-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 15px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  color: #333;
+  font-size: 14px;
+}
+
+.export-option:hover {
+  background-color: #f5f5f5;
+}
+
+.export-option:not(:last-child) {
+  border-bottom: 1px solid #eee;
+}
+
+.export-icon {
+  width: 16px;
+  height: 16px;
+  stroke: #0066cc;
+}
+
+/* Referência de linhas */
+.reference-line {
+  position: absolute;
+  background-color: rgba(0, 102, 204, 0.5);
+  pointer-events: none;
+  z-index: 5;
+  display: none;
+}
+
+.reference-line-h {
+  height: 1px;
+  width: 100%;
+  left: 0;
+}
+
+.reference-line-v {
+  width: 1px;
+  height: 100%;
+  top: 0;
+}
+
+/* Indicador de tamanho do canvas */
+.canvas-size-indicator {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  font-size: 12px;
+  color: #999;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Toggle switch completamente refeito */
+.dynamic-toggle {
+  margin-bottom: 12px;
+}
+
+.toggle-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.toggle-input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 46px;
+  height: 22px;
+  background-color: #ccc;
+  border-radius: 34px;
+  margin-right: 10px;
+  transition: background-color 0.2s;
+}
+
+.toggle-switch:before {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.toggle-input:checked + .toggle-switch {
+  background-color: #0066cc;
+}
+
+.toggle-input:checked + .toggle-switch:before {
+  transform: translateX(24px);
+}
+
+.toggle-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.help-text {
+  color: #666;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.dynamic-indicator {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  background-color: #0066cc;
+  color: white;
+  font-size: 10px;
+  padding: 2px 4px;
+  border-radius: 3px;
+  opacity: 0.8;
+  user-select: none;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Indicadores específicos para cada tipo de dado dinâmico */
+.dynamic-indicator[data-type="text"] {
+  background-color: #0066cc;
+}
+
+.dynamic-indicator[data-type="image"] {
+  background-color: #00cc66;
+}
+
+.dynamic-indicator[data-type="qrcode"] {
+  background-color: #cc6600;
+}
+
+/* Estilos de bordas para elementos dinâmicos */
+.layout-element.dynamic-text {
+  border: 1px dashed #0066cc !important;
+}
+
+.layout-element.dynamic-image {
+  border: 1px dashed #00cc66 !important;
+}
+
+.layout-element.dynamic-qrcode {
+  border: 1px dashed #cc6600 !important;
+}
+
+/* Estilos para upload de imagem */
+.image-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.upload-button-container {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.upload-button {
+  background-color: #0066cc;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background-color 0.2s;
+  display: inline-block;
+}
+
+.upload-button:hover {
+  background-color: #0055aa;
+}
+
+/* Formulário de criação de layout */
+.dimension-inputs {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.dimension-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.dimension-group label {
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+}
+
+.dimension-input {
+  width: 100%;
+  height: 36px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* Estilos para botões de ferramenta */
+.tools {
+  display: flex;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+}
+
+.tools-group {
+  display: flex;
+  gap: 8px;
+}
+
+.tool {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: center;
+}
+
+.tool:hover {
+  background-color: #0055aa;
+}
+
+.tool-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.tool-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: white;
+  stroke-width: 2;
+}
+
+/* Estilos para a tela de preenchimento de variáveis */
+.fill-variables-container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.layout-selector {
+  margin-bottom: 20px;
+}
+
+.layout-select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.no-variables-message {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 4px;
+  margin-top: 20px;
+  text-align: center;
+  color: #666;
+}
+
+.variables-list {
+  margin-top: 20px;
+}
+
+/* Novo estilo para o botão de preenchimento automático */
+.auto-fill-container {
+  margin-bottom: 20px;
+  background-color: #f0f7ff;
+  padding: 15px;
+  border-radius: 4px;
+  border-left: 4px solid #0066cc;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.auto-fill-button {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: background-color 0.2s;
+}
+
+.auto-fill-button:hover {
+  background-color: #0055aa;
+}
+
+.variable-input-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  border-left: 4px solid #0066cc;
+}
+
+.variable-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.variable-name {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.variable-type {
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: white;
+}
+
+.variable-type-text {
+  background-color: #0066cc;
+}
+
+.variable-type-image {
+  background-color: #00cc66;
+}
+
+.variable-type-qrcode {
+  background-color: #cc6600;
+}
+
+.variable-input {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Estilo para pré-visualização de QR code */
+.qr-preview {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 15px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+.preview-label {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.qr-preview-image {
+  max-width: 150px;
+  max-height: 150px;
+  border: 1px solid #eee;
+}
+
+.variables-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.process-button, 
+.preview-button, 
+.download-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.process-button {
+  background-color: #0066cc;
+}
+
+.process-button:hover {
+  background-color: #0055aa;
+}
+
+.process-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.export-result {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: #f0f7ff;
+  border-radius: 4px;
+  border-left: 4px solid #0066cc;
+}
+
+.export-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.preview-button {
+  background-color: #28a745;
+}
+
+.preview-button:hover {
+  background-color: #218838;
+}
+
+.download-button {
+  background-color: #6c757d;
+}
+
+.download-button:hover {
+  background-color: #5a6268;
+}
+
+/* Estilos para o processador de variáveis */
+.variables-processor {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.processor-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.processor-header h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.processor-header p {
+  color: #666;
+  font-size: 16px;
+}
+
+.processor-content {
+  position: relative;
+}
+
+.processing-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.processing-indicator {
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #0066cc;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.api-result {
+  margin-top: 30px;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+.api-result.success {
+  background-color: #e6f7e6;
+  border-left: 4px solid #28a745;
+}
+
+.api-result.error {
+  background-color: #f8d7da;
+  border-left: 4px solid #dc3545;
+}
+
+.result-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.view-pdf-button,
+.download-pdf-button {
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.view-pdf-button {
+  background-color: #28a745;
+}
+
+.view-pdf-button:hover {
+  background-color: #218838;
+}
+
+.download-pdf-button {
+  background-color: #0066cc;
+}
+
+.download-pdf-button:hover {
+  background-color: #0055aa;
+}
+
+/* Novos estilos para o resumo de variáveis */
+.variables-summary {
+  margin-top: 30px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+  padding: 20px;
+  border: 1px solid #e9ecef;
+}
+
+.variables-summary h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 18px;
+  color: #333;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 10px;
+}
+
+.variables-data {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 15px;
+}
+
+.variable-summary-item {
+  background-color: white;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.variable-summary-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.variable-summary-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 15px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #eee;
+}
+
+.variable-summary-name {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.variable-summary-value {
+  padding: 15px;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.variable-preview-image {
+  max-width: 100%;
+  max-height: 150px;
+  object-fit: contain;
+} 

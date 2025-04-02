@@ -1,0 +1,1001 @@
+/* CSS puro sem Tailwind */
+
+/* Estilos específicos para o teste básico */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background-color: #001e50;
+  color: white;
+  gap: 1rem;
+}
+
+.header h1 {
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem 0;
+}
+
+.header p {
+  margin: 0;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.vw-logo {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  background-color: #f0f0f0;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 250px;
+  min-width: 250px;
+  background-color: white;
+  padding: 1rem;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  height: calc(100vh - 110px);
+  box-sizing: border-box;
+}
+
+.properties-sidebar {
+  width: 250px;
+  min-width: 250px;
+  background-color: white;
+  padding: 1rem;
+  border-left: 1px solid #ddd;
+  overflow-y: auto;
+  height: calc(100vh - 110px);
+  box-sizing: border-box;
+}
+
+.sidebar h2, .properties-sidebar h2 {
+  font-size: 1.2rem;
+  margin: 0 0 1rem 0;
+  color: #333;
+}
+
+.layouts-section {
+  margin-top: 1.5rem;
+  overflow-y: visible;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.tools {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.tool {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 0.75rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  height: 80px;
+  box-sizing: border-box;
+}
+
+.tool:hover {
+  background-color: #0055aa;
+}
+
+.tool-icon {
+  width: 28px;
+  height: 28px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tool-label {
+  font-size: 13px;
+  text-align: center;
+}
+
+.canvas {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  background-color: #f8f8f8;
+}
+
+/* Novo wrapper para o canvas com zoom */
+.canvas-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Barra de ferramentas de zoom */
+.canvas-tools {
+  display: flex;
+  gap: 8px;
+  padding: 10px 16px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+  z-index: 10;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  height: 54px;
+}
+
+.zoom-button {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  background-color: white;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.zoom-button:hover {
+  background-color: #f0f0f0;
+  border-color: #ccc;
+}
+
+.zoom-level {
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.canvas-dimensions-indicator {
+  margin-left: auto;
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+}
+
+.canvas-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: auto;
+  padding: 20px;
+  height: calc(100vh - 164px);
+}
+
+.canvas-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(rgba(200, 200, 200, 0.2) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(200, 200, 200, 0.2) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+/* Estilos garantindo que tudo seja aplicado */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilos extras para o editor de layout (originais) */
+.canvas-ruler-h, .canvas-ruler-v {
+  position: absolute;
+  background-color: #f0f0f0;
+  z-index: 5;
+}
+
+.canvas-ruler-h {
+  top: 0;
+  left: 20px;
+  right: 0;
+  height: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.canvas-ruler-v {
+  top: 20px;
+  left: 0;
+  bottom: 0;
+  width: 20px;
+  border-right: 1px solid #e0e0e0;
+}
+
+.floating-action-button {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 9999px;
+  background-color: #3b82f6;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.floating-action-button:hover {
+  transform: scale(1.05);
+  background-color: #2563eb;
+}
+
+/* Estilos para o LayoutCanvas */
+.reference-line {
+  position: absolute;
+  background-color: rgba(0, 102, 204, 0.2);
+  pointer-events: none;
+}
+
+.reference-line-h {
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+.reference-line-v {
+  top: 0;
+  left: 50%;
+  height: 100%;
+  width: 1px;
+  transform: translateX(-50%);
+}
+
+.canvas-size-indicator {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 12px;
+  color: #666;
+  z-index: 10;
+}
+
+.download-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  z-index: 10;
+}
+
+.download-button:hover {
+  background-color: #0055aa;
+}
+
+.download-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.no-layout-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  padding: 40px;
+  color: #999;
+  text-align: center;
+  background: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.no-layout-message h3 {
+  margin: 15px 0 10px;
+  font-size: 18px;
+  color: #666;
+}
+
+.no-layout-message p {
+  margin: 0 0 20px;
+  font-size: 14px;
+}
+
+.no-layout-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.create-button, .save-button {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 16px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.save-button {
+  background-color: #666;
+}
+
+/* Estilos para o SaveLoadPanel */
+.save-load-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-right: 0.25rem;
+  margin-bottom: 1rem;
+  max-height: none;
+  overflow-y: visible;
+}
+
+.layout-creation-section, 
+.current-layout-section, 
+.saved-layouts-section {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  background-color: #f5f5f5;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0;
+  color: #333;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.layout-creation-form {
+  padding: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  color: #555;
+  font-weight: 500;
+}
+
+.form-input, .form-select {
+  width: 85%;
+  padding: 0.6rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.form-input:focus, .form-select:focus {
+  border-color: #0066cc;
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+  outline: none;
+}
+
+.dimension-inputs {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.create-button:hover:not(:disabled) {
+  background-color: #0055aa;
+}
+
+.create-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.current-layout-info {
+  padding: 1rem;
+}
+
+.layout-name {
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0 0 0.5rem 0;
+  color: #333;
+}
+
+.layout-dimensions {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0 0 1rem 0;
+}
+
+.save-button:hover:not(:disabled) {
+  background-color: #15803d;
+}
+
+.save-button.saving {
+  background-color: #65a30d;
+  cursor: wait;
+}
+
+.saved-layouts-list {
+  padding: 0.5rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.no-layouts-message {
+  padding: 1rem;
+  color: #666;
+  text-align: center;
+  font-style: italic;
+}
+
+.saved-layout-item {
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.saved-layout-item:hover {
+  border-color: #0066cc;
+  box-shadow: 0 1px 3px rgba(0, 102, 204, 0.1);
+}
+
+.saved-layout-item.active {
+  border-color: #0066cc;
+  background-color: #f0f7ff;
+}
+
+.layout-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.layout-item-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 0;
+  color: #333;
+}
+
+.delete-layout-button {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.delete-layout-button:hover {
+  background-color: #dc2626;
+}
+
+.layout-item-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.layout-item-dates {
+  font-size: 0.75rem;
+  color: #999;
+}
+
+/* Estilos para layout elements */
+.layout-element {
+  position: absolute;
+  background-color: white;
+  cursor: move;
+  user-select: none;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding: 8px;
+  box-sizing: border-box;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+
+.layout-element:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.layout-element.selected {
+  border: 1.5px solid #0066cc;
+  box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.2);
+}
+
+.resize-handle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border: 1.5px solid #0066cc;
+  border-radius: 4px;
+}
+
+.resize-handle-nw {
+  top: -4px;
+  left: -4px;
+  cursor: nw-resize;
+}
+
+.resize-handle-n {
+  top: -4px;
+  left: calc(50% - 4px);
+  cursor: n-resize;
+}
+
+.resize-handle-ne {
+  top: -4px;
+  right: -4px;
+  cursor: ne-resize;
+}
+
+.resize-handle-e {
+  top: calc(50% - 4px);
+  right: -4px;
+  cursor: e-resize;
+}
+
+.resize-handle-se {
+  bottom: -4px;
+  right: -4px;
+  cursor: se-resize;
+}
+
+.resize-handle-s {
+  bottom: -4px;
+  left: calc(50% - 4px);
+  cursor: s-resize;
+}
+
+.resize-handle-sw {
+  bottom: -4px;
+  left: -4px;
+  cursor: sw-resize;
+}
+
+.resize-handle-w {
+  top: calc(50% - 4px);
+  left: -4px;
+  cursor: w-resize;
+}
+
+/* Estilos para o painel de propriedades */
+.properties-panel {
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.element-properties, .canvas-properties {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.property-group {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 1rem;
+  background-color: white;
+  margin-bottom: 1rem;
+}
+
+.property-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.property-header h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.property-group h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  color: #555;
+  font-weight: 500;
+}
+
+.property-row {
+  display: flex;
+  margin-bottom: 0.75rem;
+  gap: 0.75rem;
+}
+
+.property-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.property-field label {
+  font-size: 0.8rem;
+  margin-bottom: 0.35rem;
+  color: #666;
+}
+
+.number-input, 
+.select-input, 
+.content-input, 
+.color-input {
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.content-input {
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.delete-element-button {
+  background-color: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.delete-element-button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.delete-element-button:hover {
+  background-color: #ee3333;
+}
+
+.apply-button {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+}
+
+.apply-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.help-text {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.properties-empty-message {
+  text-align: center;
+  color: #999;
+  padding: 2rem;
+}
+
+/* Diálogo de confirmação para excluir */
+.delete-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.delete-dialog-content {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  width: 300px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.delete-dialog-title {
+  margin: 0 0 1rem 0;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.delete-dialog-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.cancel-button, .confirm-button {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.cancel-button {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.confirm-button {
+  background-color: #ff4444;
+  color: white;
+}
+
+/* Media queries para responsividade */
+@media (max-width: 1200px) {
+  .main {
+    flex-wrap: wrap;
+  }
+  
+  .sidebar, .properties-sidebar {
+    min-width: 180px;
+    width: 220px;
+  }
+  
+  .canvas {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .main {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  
+  .sidebar, .properties-sidebar {
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid #ddd;
+    padding: 1rem;
+  }
+  
+  .canvas {
+    flex: 1;
+    min-height: 500px;
+  }
+  
+  .form-group {
+    margin-bottom: 0.75rem;
+  }
+  
+  .header h1 {
+    font-size: 1.25rem;
+  }
+  
+  .vw-logo {
+    height: 32px;
+  }
+  
+  .canvas-tools {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    margin-bottom: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    z-index: 20;
+  }
+}
+
+@media (max-width: 600px) {
+  .tools {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .dimension-inputs {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .layout-item-details {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .tool {
+    padding: 0.4rem;
+  }
+  
+  .tool-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .canvas-container {
+    border-radius: 0;
+  }
+}
+
+/* Estilização da navbar com o azul da Volkswagen */
+.navbar {
+  background-color: #001e50; /* Azul Volkswagen */
+  color: white;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.navbar h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Exportar menu */
+.export-menu {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.export-button {
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.export-button:hover {
+  background-color: #0055aa;
+}
+
+.export-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 5px;
+  stroke: white;
+}
+
+/* Navegação */
+.navigation {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-button {
+  padding: 8px 16px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.nav-button:hover {
+  background-color: #e0e0e0;
+}
+
+.nav-button.active {
+  background-color: #0066cc;
+  color: white;
+  border-color: #0055aa;
+}
+
+/* Página do processador */
+.processor-page {
+  display: block;
+  padding: 20px;
+  background-color: #f8f9fa;
+  overflow-y: auto;
+}
